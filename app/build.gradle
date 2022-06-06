@@ -1,0 +1,149 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id("de.mannodermaus.android-junit5")
+
+
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.example.nytarticlestask"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+       // testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+      //  testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
+
+        buildConfigField "String", "BASE_URL", '"https://api.nytimes.com/svc/mostpopular/v2/"'
+        buildConfigField "String", "ARTICLES_API_KEY", '"InG1PEZrjgZp9xjHlZJcYUruO1OdwXMF"'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
+    dataBinding.enabled true
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    //material design
+    implementation "com.google.android.material:material:1.0.0"
+
+    //retrofit
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    // moshi Converter
+    def versions_retrofit = "2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions_retrofit"
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+
+    // ViewModel
+    def lifecycle_version = '2.1.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8'
+
+    //progressbar
+    implementation 'com.tuyenmonkey:mkloader:1.4.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //Circle ImageView
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // Serialize Class ..
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
+
+    //Room
+    def room_version = "2.2.5"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+
+    //Parceler
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
+
+
+    // rx Android
+    def versions_rxAndroid = "2.1.1"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions_rxAndroid"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions_retrofit"
+
+    // Koin
+    def koin_version = '3.2.0'
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-compat:$koin_version"
+    implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:4.7.1"
+
+    // multidex
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+
+    // Test
+    def  junit5    = "5.8.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    testImplementation "androidx.room:room-testing:$room_version"
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.mockk:mockk:1.10.2"
+
+
+}
